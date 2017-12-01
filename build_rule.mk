@@ -1,3 +1,7 @@
+include common.mk
+
+MAKE := $(MAKE) -f $(RULE_FILE)
+
 .PHONY: qemu arm-sync
 
 qemu:

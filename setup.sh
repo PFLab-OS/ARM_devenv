@@ -4,7 +4,7 @@
 # Originating from https://gist.github.com/george-hawkins/16ee37063213f348a17717a7007d2c79.
 #
 
-# Used for
+# Used for:
 # 1. avoiding multiple provisioning, and
 # 2. determining wheter execution environment is host or VirtualBox guest VM
 #    (in Makefile).
@@ -15,7 +15,9 @@ sudo sed -i'~' -E "s@http://(..\.)?(archive|security)\.ubuntu\.com/ubuntu@http:/
 sudo DEBIAN_FRONTEND=noninteractive apt -qq update
 
 # Install some packages.
-sudo DEBIAN_FRONTEND=noninteractive apt -qq install -y qemu-system-aarch64 cloud-utils
+sudo DEBIAN_FRONTEND=noninteractive apt -qq install -y \
+    qemu-system-aarch64 \
+    cloud-utils
 
 # Download QEMU_EFI.fd and uefi1.img.
 wget --progress=bar:force https://releases.linaro.org/components/kernel/uefi-linaro/latest/release/qemu64/QEMU_EFI.fd
