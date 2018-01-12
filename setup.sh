@@ -17,7 +17,9 @@ sudo DEBIAN_FRONTEND=noninteractive apt -qq update
 # Install some packages.
 sudo DEBIAN_FRONTEND=noninteractive apt -qq install -y \
     qemu-system-aarch64 \
-    cloud-utils
+    cloud-utils \
+    kpartx \
+    gdisk
 
 # Download QEMU_EFI.fd and uefi1.img.
 wget --progress=bar:force https://releases.linaro.org/components/kernel/uefi-linaro/latest/release/qemu64/QEMU_EFI.fd
