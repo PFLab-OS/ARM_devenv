@@ -8,4 +8,4 @@ qemu:
 	bash sync/qemu.sh
 
 arm-sync:
-	rsync -avhP -r --delete /home/vagrant/sync arm:~
+	rsync -avhP -r --delete /home/vagrant/sync arm:

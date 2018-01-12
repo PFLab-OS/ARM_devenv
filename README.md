@@ -74,7 +74,7 @@ Then please logout and login back.
 
 ## Sync files between local and ARM Ubuntu
 
-A command
+The command
 
 ```shell
 $ make arm-sync
@@ -82,7 +82,7 @@ $ make arm-sync
 
 ... synchonizes `sync` directory between local environment and ARM Ubuntu on QEMU.
 
-This way is tentative. The sharing will be automated in the future.
+This way is tentative; the sharing will be automated in the future.
 
 [SSH is configured]: #configure-ssh
 [starting QEMU]: #start-qemu
