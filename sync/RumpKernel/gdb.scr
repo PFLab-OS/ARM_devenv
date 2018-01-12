@@ -1,0 +1,5 @@
+target remote localhost:23456
+symbol-file main-rr.bin
+b _start
+la asm
+c

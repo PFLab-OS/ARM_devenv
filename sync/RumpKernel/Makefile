@@ -36,7 +36,7 @@ $(RR_IMG): $(RR_BIN) grub.cfg
 	$(MAKE) umount
 
 	# Create new disk image
-	dd if=/dev/zero of=$(RR_IMG) bs=1M count=200
+	dd if=/dev/zero of=$(RR_IMG) bs=1M count=1000
 	sgdisk -g -o -n 1::100M -t 1:EF00 -n 2:: -t 2:8300 $(RR_IMG)
 
 	# Mount
@@ -44,12 +44,12 @@ $(RR_IMG): $(RR_BIN) grub.cfg
 	$(MAKE) kpartx
 	sudo mkfs.vfat -F32 /dev/dm-2
 	sudo mount -t vfat /dev/dm-2 $(MOUNT_DIR_EFI)
-	sudo mkfs.ext2 /dev/dm-3
-	sudo mount -t ext2 /dev/dm-3 $(MOUNT_DIR_RUMP)
+	sudo mkfs.ext4 -L rootfs /dev/dm-3
+	sudo mount -t ext4 /dev/dm-3 $(MOUNT_DIR_RUMP)
 
 	## EFI/boot/grubaa64.efi
-	sudo mkdir -p $(MOUNT_DIR_EFI)/EFI/boot
-	sudo cp grubaa64.efi $(MOUNT_DIR_EFI)/EFI/boot/grubaa64.efi
+	sudo mkdir -p $(MOUNT_DIR_EFI)/EFI/BOOT
+	sudo cp grubaa64.efi $(MOUNT_DIR_EFI)/EFI/BOOT/grubaa64.efi
 
 	## grub.cfg
 	sudo mkdir -p $(MOUNT_DIR_RUMP)/boot/grub
