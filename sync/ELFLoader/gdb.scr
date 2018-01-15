@@ -1,0 +1,5 @@
+target remote localhost:23456
+# symbol-file elf_loader.bin
+# b c_entry
+la asm
+# c
