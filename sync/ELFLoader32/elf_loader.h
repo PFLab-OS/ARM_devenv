@@ -11,5 +11,5 @@ typedef struct {
 
 #define ELF_MEMBUF_PTR 0x200000
 
-int parse_elf32(const void* elf_ptr, Elf32Exec* elf32_exec);
-int load_elf32(const Elf32Exec* elf32_exec);
+int elf32_parse(const void* elf_ptr, Elf32Exec* elf32_exec);
+int elf32_load(const Elf32Exec* elf32_exec);

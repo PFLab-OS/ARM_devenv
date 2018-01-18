@@ -8,7 +8,7 @@ static inline int is_elf64(const void* e_hdr);
 static inline int is_abi_sysv(const void* e_hdr);
 static inline int is_abi_gnu(const void* e_hdr);
 
-int parse_elf64(const void* const elf_ptr, Elf64Exec* elf64_exec)
+int elf64_parse(const void* const elf_ptr, Elf64Exec* elf64_exec)
 {
     const uint8_t* hdr = (const uint8_t*)elf_ptr;
     const Elf64_Ehdr* e_hdr = (const Elf64_Ehdr*)elf_ptr;
@@ -44,7 +44,7 @@ int parse_elf64(const void* const elf_ptr, Elf64Exec* elf64_exec)
     return 0;
 }
 
-int load_elf64(const Elf64Exec* elf64_exec)
+int elf64_load(const Elf64Exec* elf64_exec)
 {
     const uint8_t* hdr = elf64_exec->header;
     const Elf64_Ehdr* e_hdr = elf64_exec->elf64_header;

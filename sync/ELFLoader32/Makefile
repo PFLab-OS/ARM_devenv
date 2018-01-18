@@ -1,16 +1,16 @@
-CROSS_PREFIX = arm-none-eabi-
+CROSS_PREFIX = arm-eabi-
 CFLAGS = -std=c99 -Wall -Wextra -Wconversion -O0 -ggdb -Wno-builtin-declaration-mismatch
 
-QEMU = qemu-system-arm -M versatilepb -nographic
-# ELF = test.out
+QEMU = qemu-system-arm -M versatilepb -cpu cortex-a15 -nographic
+ELF = test.out
 ELF = hello-rr.elf
 
 .PHONY: qemu qemu-gdb gdb clean
 
-qemu: elf_loader.bin
+qemu: kernel.bin
 	$(QEMU) -kernel $<
 
-qemu-gdb: elf_loader.bin
+qemu-gdb: kernel.bin
 	$(QEMU) -kernel $< -monitor stdio -serial none -gdb tcp::23456 -S
 
 gdb:
@@ -19,8 +19,8 @@ gdb:
 %.bin: %.out
 	$(CROSS_PREFIX)objcopy -O binary $< $@
 
-elf_loader.out: main.tmp elf_loader.o uart.o startup.o kernel.ld
-	$(CROSS_PREFIX)ld -Tkernel.ld $+ -o $@
+kernel.out: main.tmp elf_loader.o uart.o startup.o kernel.ld
+	$(CROSS_PREFIX)ld -Tkernel.ld main.tmp elf_loader.o uart.o startup.o -o $@
 	rm $<
 
 main.tmp: main.o $(ELF)

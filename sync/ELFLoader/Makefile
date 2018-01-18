@@ -5,10 +5,10 @@ QEMU = qemu-system-aarch64 -M virt -cpu cortex-a53 -nographic
 
 .PHONY: qemu qemu-gdb gdb clean
 
-qemu: elf_loader.bin
+qemu: kernel.bin
 	$(QEMU) -kernel $<
 
-qemu-gdb: elf_loader.bin
+qemu-gdb: kernel.bin
 	$(QEMU) -kernel $< -monitor stdio -serial none
 	# -gdb tcp::23456 -S
 
@@ -18,8 +18,8 @@ gdb:
 %.bin: %.out
 	$(CROSS_PREFIX)objcopy -O binary $< $@
 
-elf_loader.out: main.tmp elf_loader.o uart.o startup.o kernel.ld
-	$(CROSS_PREFIX)ld -Tkernel.ld $+ -o $@
+kernel.out: main.tmp elf_loader.o uart.o startup.o 
+	$(CROSS_PREFIX)ld -Tkernel.ld main.tmp elf_loader.o uart.o startup.o -o $@
 	rm $<
 
 main.tmp: main.o test.out

@@ -9,12 +9,12 @@ void c_entry(void)
     const void* elf_ptr = &__start_elf_exec;
     Elf64Exec elf64_exec;
 
-    if (parse_elf64(elf_ptr, &elf64_exec) == -1) {
+    if (elf64_parse(elf_ptr, &elf64_exec) == -1) {
         print_str("Invalid file\n");
         return;
     }
 
-    if (load_elf64(&elf64_exec) == -1) {
+    if (elf64_load(&elf64_exec) == -1) {
         print_str("Faile to load ELF\n");
         return;
     }

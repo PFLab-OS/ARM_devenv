@@ -50,8 +50,11 @@ static int __init depftom_init(void)
         return -1;
     }
 
-    if (sysfs_create_group(sysfs_kobj, &attr_group)) {
+    ret = sysfs_create_group(sysfs_kobj, &attr_group);
+    if (ret != 0) {
         kobject_put(sysfs_kobj);
+        pr_warn("depftom_init: sysfs_create_group failed: %d\n", ret);
+        return -1;
     }
 
     // Unplug CPU

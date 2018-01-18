@@ -14,12 +14,13 @@ void print_str(const char* str)
 
 void print_int(int x)
 {
+    static char x_str[32];
+
     int negative = x < 0;
     if (negative)
         x = -x;
 
     int i = 0;
-    char x_str[32] = {'\0'};
     for (; x > 0; x /= 10, i++)
         x_str[i] = (char)('0' + x % 10);
 

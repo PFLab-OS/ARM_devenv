@@ -1,5 +1,5 @@
 target remote localhost:23456
-symbol-file elf_loader.out
+symbol-file kernel.out
 b load_elf32
 b print_str
 la asm

@@ -5,8 +5,8 @@ void print_char(char c) { *UART0_PTR = (unsigned int)c; }
 void print_str(const char* str)
 {
     while (*str != '\0') {
-        *UART0_PTR = (unsigned int)(*str);
-        str++;
+		print_char(*str);
+		str++;
     }
 }
 

@@ -11,5 +11,5 @@ typedef struct {
 
 #define ELF_MEMBUF_PTR 0x40200000
 
-int parse_elf64(const void* elf_ptr, Elf64Exec* elf64_exec);
-int load_elf64(const Elf64Exec* elf64_exec);
+int elf64_parse(const void* elf_ptr, Elf64Exec* elf64_exec);
+int elf64_load(const Elf64Exec* elf64_exec);

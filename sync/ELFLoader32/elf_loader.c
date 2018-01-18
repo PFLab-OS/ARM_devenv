@@ -8,7 +8,7 @@ static inline int is_elf64(const void* e_hdr);
 static inline int is_abi_sysv(const void* e_hdr);
 static inline int is_abi_gnu(const void* e_hdr);
 
-int parse_elf32(const void* const elf_ptr, Elf32Exec* elf32_exec)
+int elf32_parse(const void* const elf_ptr, Elf32Exec* elf32_exec)
 {
     const uint8_t* hdr = (const uint8_t*)elf_ptr;
     const Elf32_Ehdr* e_hdr = (const Elf32_Ehdr*)elf_ptr;
@@ -44,7 +44,7 @@ int parse_elf32(const void* const elf_ptr, Elf32Exec* elf32_exec)
     return 0;
 }
 
-int load_elf32(const Elf32Exec* elf32_exec)
+int elf32_load(const Elf32Exec* elf32_exec)
 {
     const uint8_t* hdr = elf32_exec->header;
     const Elf32_Ehdr* e_hdr = elf32_exec->elf32_header;
@@ -79,8 +79,12 @@ int load_elf32(const Elf32Exec* elf32_exec)
         }
     }
 
-	for (volatile i = 0; i < (1 << 28); i++)
-		;
+	static int first = 1;
+	if (first)
+		for (volatile int i = 0; i < (1 << 28); i++)
+			;
+	first = 0;
+
     print_str("Executing...\n");
     int (*entry_point)() = mem_buf + e_hdr->e_entry;
     int rv = entry_point();
